@@ -3,6 +3,7 @@ node{
   def ImageName = "maheshkharwadkar/mkimage"
   def Creds	= "mk-dockerhub-creds"
   def imageTag = "1.0"
+  try{
   stage ('checkout'){
 	git 'https://github.com/maheshkharwadkar/mk-k8-ci-cd.git'
   }
@@ -18,5 +19,7 @@ node{
         }
 
     }
-  
+  } catch (err) {
+      currentBuild.result = 'FAILURE'
+    }
 }
